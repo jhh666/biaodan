@@ -43,7 +43,7 @@
     <div class="userlist">
       <div class="search">
         <i class="iconfont icontuding">&#xe632;</i>
-        <input type="text" @input="usersearch" v-model="search">
+        <input type="text" @input="usersearch" v-model="search" placeholder="请输入用户名搜索">
       </div>
       <div class="userinfo" v-if="userlistpage.length">
         <table class="table" >
@@ -87,6 +87,7 @@ export default {
   name: 'index',
   data () {
     return {
+      id: 0,
       search: '',
       userid: 0,
       page: 1,
@@ -149,7 +150,7 @@ export default {
       if(!this.showUser && !this.showPassword && !this.showEmail && !this.showNumber){
         //判断是新增还是修改
         if(this.updateuser){
-          this.user.id = this.userlist.length
+          this.user.id = this.id++
           // jhh this.user指向同一个内存地址，需要复制这个对象再push
           this.userlist.push(JSON.parse(JSON.stringify(this.user)))
           // alert('新增成功')
@@ -158,6 +159,7 @@ export default {
           let status = false 
           this.userlist.forEach((val, index) => {
             if(val.id == this.userid){
+              this.user.id = val.id
               this.userlist.splice(index,1,JSON.parse(JSON.stringify(this.user)))
               alert('修改成功')
               status = true
@@ -188,7 +190,7 @@ export default {
       }
     },
     updateuser2(index){
-      console.log(this.userid)
+      console.log(index)
       this.userid = index
       this.user.user = this.userlist[index].user
       this.user.password = this.userlist[index].password
