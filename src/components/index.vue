@@ -150,6 +150,7 @@ export default {
       if(!this.showUser && !this.showPassword && !this.showEmail && !this.showNumber){
         //判断是新增还是修改
         if(this.updateuser){
+          this.search = ''
           this.user.id = this.id++
           // jhh this.user指向同一个内存地址，需要复制这个对象再push
           this.userlist.push(JSON.parse(JSON.stringify(this.user)))
@@ -157,6 +158,7 @@ export default {
           // console.log(this.userlist)
         }else{
           let status = false 
+          console.log(this.userid)
           this.userlist.forEach((val, index) => {
             if(val.id == this.userid){
               this.user.id = val.id
@@ -182,7 +184,7 @@ export default {
       }
     },
     deleteuser(user,index){
-      if(confirm('确认删除' + index + '用户' + user + '吗')){
+      if(confirm('确认删除用户' + user + '吗')){
         // let val = this.search ? this.userlistinfo : this.userlist
         this.userlist.splice(index,1)
         this.search = ''
@@ -190,7 +192,6 @@ export default {
       }
     },
     updateuser2(index){
-      console.log(index)
       this.userid = index
       this.user.user = this.userlist[index].user
       this.user.password = this.userlist[index].password
@@ -255,7 +256,7 @@ export default {
     position:relative;
   }
   .search{
-    margin-bottom:60px;
+    margin-bottom:50px;
   }
   .table{
     margin:0 auto;
@@ -289,7 +290,7 @@ export default {
   }
   .nouser{
     width:700px;
-    height:535px;
+    height:400px;
     display: flex;
     font-size:18px;
     justify-content: center;
@@ -305,7 +306,7 @@ export default {
     position:absolute;
     left:0;
     right:0;
-    bottom:25px;
+    bottom:100px;
     text-align:center;
   }
   .page-item{
